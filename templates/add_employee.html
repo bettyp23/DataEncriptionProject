@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Add Employee</h2>
+  <form method="post">
+    <div class="field">
+      <label for="name">Name</label>
+      <input id="name" name="name" required />
+    </div>
+    <div class="field">
+      <label for="age">Age</label>
+      <input id="age" name="age" type="number" min="18" required />
+    </div>
+    <div class="field">
+      <label for="phnum">Phone Number</label>
+      <input id="phnum" name="phnum" required />
+    </div>
+    <div class="field">
+      <label for="security_level">Security Level</label>
+      <input id="security_level" name="security_level" type="number" min="1" required />
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required />
+    </div>
+    <button type="submit">Save Employee</button>
+  </form>
+{% endblock %}
+

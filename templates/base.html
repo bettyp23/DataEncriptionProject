@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Secure Employee Portal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+  </head>
+  <body>
+    <header>
+      <h1>Secure Employee Portal</h1>
+      <nav>
+        {% if current_user.id %}
+          <a href="{{ url_for('list_employees') }}">List Employees</a>
+          <a href="{{ url_for('add_employee') }}">Add Employee</a>
+          <a href="{{ url_for('list_pay_raises') }}">List Pay Raises</a>
+          <a href="{{ url_for('add_pay_raise') }}">Add Pay Raise</a>
+          <a href="{{ url_for('my_pay_raises') }}">Show My Pay Raises</a>
+          <a href="{{ url_for('logout') }}">Logout ({{ current_user.name }})</a>
+        {% else %}
+          <a href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+      </nav>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <section class="messages">
+          {% for category, message in messages %}
+            <div class="message {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </section>
+      {% endif %}
+    {% endwith %}
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
+

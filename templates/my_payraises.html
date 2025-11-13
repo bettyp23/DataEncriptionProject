@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>My Pay Raises</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Pay Raise Id</th>
+        <th>Date</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in pay_raises %}
+        <tr>
+          <td>{{ record.PayRaiseId }}</td>
+          <td>{{ record.PayRaiseDate }}</td>
+          <td>${{ record.RaiseAmt }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="3">No pay raises recorded.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+

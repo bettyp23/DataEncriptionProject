@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Add Pay Raise</h2>
+  <form method="post">
+    <div class="field">
+      <label for="emp_id">Employee</label>
+      <select id="emp_id" name="emp_id" required>
+        <option value="" disabled selected>Select an employee</option>
+        {% for employee in employees %}
+          <option value="{{ employee.UserId }}">{{ employee.UserId }} - {{ employee.Name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="field">
+      <label for="pay_raise_date">Pay Raise Date</label>
+      <input id="pay_raise_date" name="pay_raise_date" type="date" required />
+    </div>
+    <div class="field">
+      <label for="raise_amt">Raise Amount</label>
+      <input id="raise_amt" name="raise_amt" type="number" min="0" step="0.01" required />
+    </div>
+    <button type="submit">Save Pay Raise</button>
+  </form>
+{% endblock %}
+

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Employee Login</h2>
+
+  {% if error %}
+    <p class="message danger">{{ error }}</p>
+  {% endif %}
+
+  <form method="post">
+    <div class="field">
+      <label for="name">Name</label>
+      <input id="name" name="name" value="{{ name }}" required />
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required />
+    </div>
+    <button type="submit">Login</button>
+  </form>
+
+  {% if known_names %}
+    <section>
+      <h3>Known Employees (Decrypted)</h3>
+      <ul>
+        {% for item in known_names %}
+          <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
+{% endblock %}
+

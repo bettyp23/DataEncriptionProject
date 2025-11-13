@@ -1,0 +1,66 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  background-color: #003366;
+  color: #ffffff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header nav a {
+  color: #ffffff;
+  margin-right: 1rem;
+  text-decoration: none;
+}
+
+main {
+  padding: 2rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: #ffffff;
+}
+
+table th,
+table td {
+  border: 1px solid #cccccc;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.messages .message {
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 4px;
+}
+
+.messages .success {
+  background-color: #d1f2d1;
+  color: #1b5e20;
+}
+
+.messages .danger,
+.messages .warning {
+  background-color: #ffdddd;
+  color: #b71c1c;
+}
+

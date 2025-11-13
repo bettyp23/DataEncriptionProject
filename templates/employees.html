@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Employee Directory</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>User Id</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Phone</th>
+        <th>Security Level</th>
+        <th>Password</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for employee in employees %}
+        <tr>
+          <td>{{ employee.UserId }}</td>
+          <td>{{ employee.Name }}</td>
+          <td>{{ employee.Age }}</td>
+          <td>{{ employee.PhNum }}</td>
+          <td>{{ employee.SecurityLevel }}</td>
+          <td>{{ employee.LoginPassword }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="6">No employees found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
