@@ -18,10 +18,23 @@ This project demonstrates secure data management for a small organization using 
 
 ## Setup
 
+1. Clone or download the repository:
+
 ```bash
-cd /Users/bettyphipps/Desktop/DataEncriptionProject
+git clone https://github.com/bettyp23/DataEncriptionProject.git
+cd DataEncriptionProject
+```
+
+2. Create and activate a virtual environment (recommended):
+
+```bash
 python3 -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate  # On Windows use: .venv\Scripts\activate
+```
+
+3. Install dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
 
