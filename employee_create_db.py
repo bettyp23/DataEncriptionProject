@@ -1,6 +1,6 @@
 """
 Program: Employee Table Encryption Setup
-Author: GPT-5 Codex
+Author: betty phipps
 Date: 2025-11-13
 Purpose: Drop, recreate, and populate the Employee table with encrypted fields.
 """

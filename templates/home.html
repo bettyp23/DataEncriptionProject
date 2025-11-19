@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Home</h2>
+  <div class="home-options">
+    <h3>Available Options</h3>
+    <ul>
+      <li><a href="{{ url_for('list_employees') }}">List Employees</a></li>
+      <li><a href="{{ url_for('add_employee') }}">Add Employee</a></li>
+      <li><a href="{{ url_for('list_pay_raises') }}">List Pay Raises</a></li>
+      <li><a href="{{ url_for('add_pay_raise') }}">Add Pay Raise</a></li>
+      <li><a href="{{ url_for('my_pay_raises') }}">Show My Pay Raises</a></li>
+      {% if current_user.security_level and current_user.security_level <= 2 %}
+        <li><a href="{{ url_for('submit_delete_payraise') }}">Submit to Delete a Pay Raise</a></li>
+      {% endif %}
+    </ul>
+  </div>
+{% endblock %}
+

@@ -1,11 +1,12 @@
 """
 Program: Secure Employee Portal Flask App
-Author: GPT-5 Codex
+Author: betty phipps
 Date: 2025-11-13
 Purpose: Demonstrate encrypted storage and retrieval of employee data.
 """
 from __future__ import annotations
 
+import socket
 import sqlite3
 from functools import wraps
 from pathlib import Path
@@ -78,7 +79,7 @@ def login():
                     session["user_name"] = security_utils.decrypt_text(user["Name"])
                     session["security_level"] = user["SecurityLevel"]
                     flash(f"Welcome back, {session['user_name']}!", "success")
-                    return redirect(url_for("list_employees"))
+                    return redirect(url_for("home"))
                 error = "Invalid credentials. Please try again."
 
     with get_db_connection() as conn:
@@ -91,6 +92,12 @@ def login():
         name=name_value,
         known_names=known_names,
     )
+
+
+@app.route("/home")
+@login_required
+def home():
+    return render_template("home.html")
 
 
 @app.route("/logout")
@@ -284,6 +291,102 @@ def add_pay_raise():
     ]
 
     return render_template("add_payraise.html", employees=dropdown_employees)
+
+
+@app.route("/payraises/submit-delete", methods=["GET", "POST"])
+@login_required
+def submit_delete_payraise():
+    error = None
+    emp_id_value = None
+    pay_raise_date_value = None
+
+    if request.method == "POST":
+        emp_id = request.form.get("emp_id", "").strip()
+        pay_raise_date = request.form.get("pay_raise_date", "").strip()
+        emp_id_value = emp_id
+        pay_raise_date_value = pay_raise_date
+
+        if not all([emp_id, pay_raise_date]):
+            return render_template(
+                "results.html",
+                success=False,
+                message="All fields are required.",
+            )
+
+        try:
+            emp_id_value = int(emp_id)
+        except ValueError:
+            return render_template(
+                "results.html",
+                success=False,
+                message="Employee ID must be an integer.",
+            )
+
+        # Validate that record exists in EmpPayRaise table
+        with get_db_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT PayRaiseId
+                FROM EmpPayRaise
+                WHERE EmpId = ? AND PayRaiseDate = ?;
+                """,
+                (emp_id_value, pay_raise_date),
+            )
+            record = cursor.fetchone()
+
+            if not record:
+                return render_template(
+                    "results.html",
+                    success=False,
+                    message=f"No pay raise record found for Employee ID {emp_id_value} with date {pay_raise_date}.",
+                )
+
+        # If validation passes, try to connect to server
+        HOST = "localhost"
+        PORT = 9999
+
+        try:
+            # Create message with preset separator
+            message = f"{emp_id_value}^%${pay_raise_date}"
+            encrypted_message = security_utils.encrypt_text(message)
+
+            # Create socket and connect
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.connect((HOST, PORT))
+
+            # Send encrypted message
+            client_socket.sendall(encrypted_message)
+            client_socket.close()
+
+            return render_template(
+                "results.html",
+                success=True,
+                message="Test result successfully sent",
+            )
+
+        except (ConnectionRefusedError, OSError, socket.error) as e:
+            return render_template(
+                "results.html",
+                success=False,
+                message="Error - Test result NOT sent",
+            )
+        except Exception as e:
+            return render_template(
+                "results.html",
+                success=False,
+                message=f"Error - Test result NOT sent: {str(e)}",
+            )
+
+    return render_template("submit_delete_payraise.html")
+
+
+@app.route("/results")
+@login_required
+def results():
+    # This route is handled via render_template in submit_delete_payraise
+    # but included for direct access if needed
+    return render_template("results.html", success=False, message="No operation performed.")
 
 
 @app.context_processor

@@ -1,6 +1,6 @@
 """
 Program: Employee Pay Raise Encryption Setup
-Author: GPT-5 Codex
+Author: betty phipps
 Date: 2025-11-13
 Purpose: Drop, recreate, and populate the EmpPayRaise table with encrypted raise amounts.
 """

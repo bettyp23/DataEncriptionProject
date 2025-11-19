@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Submit to Delete a Pay Raise</h2>
+  <form method="POST" action="{{ url_for('submit_delete_payraise') }}">
+    <div class="form-group">
+      <label for="emp_id">EmpId:</label>
+      <input type="text" id="emp_id" name="emp_id" required />
+    </div>
+
+    <div class="form-group">
+      <label for="pay_raise_date">PayRaiseDate:</label>
+      <input type="date" id="pay_raise_date" name="pay_raise_date" required />
+    </div>
+
+    <div class="form-group">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+{% endblock %}
+
